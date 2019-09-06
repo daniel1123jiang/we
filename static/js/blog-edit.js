@@ -36,6 +36,10 @@
         $("#_file_blog_profile").click();
         $("#_file_blog_profile").change(function () {
             var file = this.files[0];
+            if(file.size>window.IMAGE_MAX_SIZE){
+                showMessage("image is too large.")
+                return;
+            }
             var url = window.URL.createObjectURL(file);
             $("#_blog_profile").attr("src", url);
             uploadImages([{id: '_blog_profile', file: file}]);
@@ -118,6 +122,10 @@
         var items = [];
         for (var i = 0; i < obj.files.length; i++) {
             var file = obj.files[i];
+            if(file.size>window.IMAGE_MAX_SIZE){
+                showMessage("image is too large.")
+                return items;
+            }
             var url = window.URL.createObjectURL(file);
             var id = url.substring(url.lastIndexOf("/") + 1);
             var item = {id: id, url: url, file: file, no: fileNo};

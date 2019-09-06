@@ -13,6 +13,10 @@
             $("#_file_user_portrait").click();
             $("#_file_user_portrait").change(function () {
                 var file = this.files[0];
+                if(file.size>window.IMAGE_MAX_SIZE){
+                    showMessage("image is too large.")
+                    return;
+                }
                 var url = window.URL.createObjectURL(file);
                 $("#_user_portrait").attr("src", url);
                 uploadPortrait({id: '_user_portrait', file: file});
@@ -240,6 +244,10 @@
         var items = [];
         for (var i = 0; i < obj.files.length; i++) {
             var file = obj.files[i];
+            if(file.size>window.IMAGE_MAX_SIZE){
+                showMessage("image is too large.")
+                return items;
+            }
             var url = window.URL.createObjectURL(file);
             var id = url.substring(url.lastIndexOf("/") + 1);
             var item = {id: id, url: url, file: file, no: fileNo};
