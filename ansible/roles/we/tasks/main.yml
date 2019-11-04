@@ -1,0 +1,56 @@
+---
+# tasks file for we
+
+
+- name: Create directories
+  file:
+    name: "{{ item }}"
+    state: directory
+  become: yes
+  with_items: '{{ directories }}'
+  when: directories is defined
+
+- name: copy directories
+  synchronize:
+    src: "{{ src_root }}/{{ item.src }}/"
+    dest: '{{ root }}/{{ item.dest }}/'
+    dirs: yes
+  with_items: '{{ copy_dirs }}'
+  when: copy_dirs is defined
+  become: yes
+
+- name: copy files
+  synchronize:
+    src: "{{ src_root }}/{{ item.src|safe }}"
+    dest: '{{ root }}/{{ item.dest|safe }}'
+  become: yes
+  with_items: '{{ copy_files }}'
+  when: copy_files is defined
+
+- name: copy template files
+  template:
+    src: "{{ src_root }}/{{ item.src|safe }}"
+    dest: '{{ root }}/{{ item.dest|safe }}'
+  become: yes
+  with_items: '{{ template_files }}'
+  when: template_files is defined
+
+
+- name: Install system service
+  template:
+    src: we.service.j2
+    dest: /etc/systemd/system/we.service
+  register: install_result
+  become: yes
+
+- name: systemctl daemon-reload
+  shell: systemctl daemon-reload
+  become: yes
+  when: install_result.changed
+
+- name: Enable service
+  service:
+    name: we
+    state: restarted
+    enabled: yes
+  become: yes

@@ -1,0 +1,5 @@
+
+
+- hosts: we
+  roles:
+    - role: we

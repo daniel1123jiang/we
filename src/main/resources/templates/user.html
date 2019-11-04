@@ -18,8 +18,10 @@
           <div class="row">
             <div class="col-md-12">
               <h2 class="mb-4" id="_bio_title" th:utext="${user.bio.title}">title</h2>
-              <a id="_insert_image" href="javascript:void(0)"><i class="icon-picture"></i></a>
-              <a id="_bio_post" href="javascript:void(0)"><i class="icon-save"></i></a>
+              <p th:if="${editFlag}">
+                <a id="_insert_image" href="javascript:void(0)"><i class="icon-picture"></i></a>
+                <a id="_bio_post" href="javascript:void(0)"><i class="icon-save"></i></a>
+              </p>
             </div>
             <div class="col-md-12" id="_bio_content" th:utext="${user.bio.content}">
               <p>content</p>

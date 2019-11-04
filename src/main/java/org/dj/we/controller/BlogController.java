@@ -185,6 +185,14 @@ public class BlogController {
         int num = random.nextInt(20);
         String url = String.format("/image/temp/%d.jpeg", num);
         model.addAttribute("profileImage", url);
+
+        Date now = new Date();
+        String date = dateFormat.format(now);
+        String time = timeFormat.format(now);
+        String dateTime = date + " at " + time;
+        model.addAttribute("tempTitle", dateTime);
+        model.addAttribute("tempContent", dateTime);
+
         return "blog-edit";
     }
 

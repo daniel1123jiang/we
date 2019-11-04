@@ -7,6 +7,28 @@
     window.fileNo = 1;
     window.uploadImageNo = 0;
     window.uploadedImageNo = 0;
+    window.posted = false;
+
+    window.initTitle = $("#_blog_title").html();
+    window.initContent = $("#_blog_content").html();
+
+    initText("_blog_title",window.initTitle,"");
+    initText("_blog_content",window.initContent,"");
+    function initText(id,showText,initText){
+        $("#"+id).on("focus", function () {
+            if($("#"+id).html()==showText){
+                $("#"+id).html(initText);
+            }
+        })
+
+        $("#"+id).on("blur", function () {
+            if($("#"+id).html()==initText||$("#"+id).html()=="<br>"){
+                $("#"+id).html(showText);
+            }
+        })
+    }
+
+
 
     initCategory();
 
@@ -64,7 +86,10 @@
     });
 
     $("#_blog_post").on("click", function () {
-        post();
+        if(!window.posted){
+            window.posted = true;
+            post();
+        }
     });
 
 
@@ -108,7 +133,7 @@
                 async: false,
                 success: function (obj) {
                     if (obj.success) {
-                        $("#" + item.id).attr("src", obj.url);
+                        // $("#" + item.id).attr("src", obj.url);
                         window.uploadedImageNo += 1;
                     } else {
                         alert("upload error")

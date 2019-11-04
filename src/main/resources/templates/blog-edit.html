@@ -14,7 +14,7 @@
 
         <div class="col-md-12 col-lg-8 main-content">
           <img th:src="${profileImage}" id="_blog_profile" alt="Image" class="img-fluid mb-5">
-          <h1 class="mb-4" id="_blog_title">click and edit title</h1>
+          <h1 class="mb-4" id="_blog_title" th:text="${tempTitle}">click and edit title</h1>
 
           <div class="pt-5">
             <p>
@@ -31,7 +31,7 @@
 
           <div class="post-content-body" id="_blog_content">
             <!-- blog content template -->
-            <p>click and edit blog</p>
+            <p th:text="${tempContent}">click and edit blog</p>
           </div>
 
         </div>
@@ -75,6 +75,6 @@
 
 
 <script src="/js/main.js"></script>
-<script src="/js/blog-edit.js"></script>
+<script src="/js/blog-edit.js?v=1"></script>
 </body>
 </html>

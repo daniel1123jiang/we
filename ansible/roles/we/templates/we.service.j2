@@ -1,0 +1,11 @@
+[Unit]
+Description=auth
+
+[Service]
+WorkingDirectory={{root}}
+ExecStart={{java}} -jar {{root}}/{{jar}}
+SuccessExitStatus=143
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

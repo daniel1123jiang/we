@@ -1,0 +1,22 @@
+---
+# defaults file for we
+
+root: /data/workspace/we
+src_root: ../../../..
+jar: we.jar
+java: /usr/local/jdk-10.0.2/bin/java
+
+
+directories:
+  - "{{root}}/config"
+  - "{{root}}/static"
+
+copy_dirs:
+  - {"src":"static","dest":"static"}
+
+copy_files:
+  - {"src":"target/we-1.0-SNAPSHOT.jar","dest":"{{jar}}"}
+
+template_files:
+  - {"src":"prod/application.yml","dest":"config/application.yml"}
+
