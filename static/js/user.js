@@ -229,7 +229,7 @@
             processData: false,//用于对data参数进行序列化处理 这里必须false
             contentType: false, //必须
             mimeType: "multipart/form-data",
-            async: false,
+            // async: false,
             success: function (obj) {
                 if (obj.success) {
                     $("#" + item.id).attr("src", obj.url);
@@ -286,7 +286,7 @@
                 processData: false,//用于对data参数进行序列化处理 这里必须false
                 contentType: false, //必须
                 mimeType: "multipart/form-data",
-                async: false,
+                // async: false,
                 success: function (obj) {
                     if (obj.success) {
                         $("#" + item.id).attr("src", obj.url);

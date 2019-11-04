@@ -12,22 +12,22 @@
     window.initTitle = $("#_blog_title").html();
     window.initContent = $("#_blog_content").html();
 
-    initText("_blog_title",window.initTitle,"");
-    initText("_blog_content",window.initContent,"");
-    function initText(id,showText,initText){
-        $("#"+id).on("focus", function () {
-            if($("#"+id).html()==showText){
-                $("#"+id).html(initText);
+    initText("_blog_title", window.initTitle, "");
+    initText("_blog_content", window.initContent, "");
+
+    function initText(id, showText, initText) {
+        $("#" + id).on("focus", function () {
+            if ($("#" + id).html() == showText) {
+                $("#" + id).html(initText);
             }
         })
 
-        $("#"+id).on("blur", function () {
-            if($("#"+id).html()==initText||$("#"+id).html()=="<br>"){
-                $("#"+id).html(showText);
+        $("#" + id).on("blur", function () {
+            if ($("#" + id).html() == initText || $("#" + id).html() == "<br>") {
+                $("#" + id).html(showText);
             }
         })
     }
-
 
 
     initCategory();
@@ -58,7 +58,7 @@
         $("#_file_blog_profile").click();
         $("#_file_blog_profile").change(function () {
             var file = this.files[0];
-            if(file.size>window.IMAGE_MAX_SIZE){
+            if (file.size > window.IMAGE_MAX_SIZE) {
                 showMessage("image is too large.")
                 return;
             }
@@ -72,7 +72,7 @@
 
         $('#_file_' + window.fileNo).click();
         $('#_file_' + window.fileNo).change(function () {
-            var items = showImage(this, window.contentDiv,window.fileNo);
+            var items = showImage(this, window.contentDiv, window.fileNo);
             uploadImages(items);
         });
 
@@ -86,10 +86,7 @@
     });
 
     $("#_blog_post").on("click", function () {
-        if(!window.posted){
-            window.posted = true;
-            post();
-        }
+        post();
     });
 
 
@@ -97,9 +94,12 @@
         if (window.uploadImageNo != window.uploadedImageNo) {
             var no = window.uploadImageNo - window.uploadedImageNo;
             showMessage(no + "images are uploading")
-            return
+            return;
         }
-
+        if (window.posted) {
+            return;
+        }
+        window.posted = true;
         var success = function (data) {
             if (data.success) {
                 location.href = "/";
@@ -130,10 +130,10 @@
                 processData: false,//用于对data参数进行序列化处理 这里必须false
                 contentType: false, //必须
                 mimeType: "multipart/form-data",
-                async: false,
+                // async: false,
                 success: function (obj) {
                     if (obj.success) {
-                        // $("#" + item.id).attr("src", obj.url);
+                        $("#" + item.id).attr("src", obj.url);
                         window.uploadedImageNo += 1;
                     } else {
                         alert("upload error")
@@ -147,7 +147,7 @@
         var items = [];
         for (var i = 0; i < obj.files.length; i++) {
             var file = obj.files[i];
-            if(file.size>window.IMAGE_MAX_SIZE){
+            if (file.size > window.IMAGE_MAX_SIZE) {
                 showMessage("image is too large.")
                 return items;
             }
