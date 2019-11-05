@@ -3,7 +3,7 @@ Description=auth
 
 [Service]
 WorkingDirectory={{root}}
-ExecStart={{java}} -jar {{root}}/{{jar}}
+ExecStart={{java}} -Djava.security.egd=file:/dev/./urandom -jar {{root}}/{{jar}}
 SuccessExitStatus=143
 StandardOutput=null
 

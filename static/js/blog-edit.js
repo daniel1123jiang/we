@@ -13,13 +13,14 @@
     window.initContent = $("#_blog_content").html();
 
     initText("_blog_title", window.initTitle, "");
-    initText("_blog_content", window.initContent, "");
+    // initText("_blog_content", window.initContent, "");
 
     function initText(id, showText, initText) {
         $("#" + id).on("focus", function () {
             if ($("#" + id).html() == showText) {
                 $("#" + id).html(initText);
             }
+            $("#" + id).focus();
         })
 
         $("#" + id).on("blur", function () {
@@ -69,7 +70,7 @@
     })
 
     $("#_insert_image").on("click", function () {
-
+        $("#_blog_content").focus();
         $('#_file_' + window.fileNo).click();
         $('#_file_' + window.fileNo).change(function () {
             var items = showImage(this, window.contentDiv, window.fileNo);
@@ -86,14 +87,15 @@
     });
 
     $("#_blog_post").on("click", function () {
-        post();
+        showLoader();
+        setInterval(post, 1000);
     });
 
 
     function post() {
         if (window.uploadImageNo != window.uploadedImageNo) {
-            var no = window.uploadImageNo - window.uploadedImageNo;
-            showMessage(no + "images are uploading")
+            // var no = window.uploadImageNo - window.uploadedImageNo;
+            // showMessage(no + "images are uploading")
             return;
         }
         if (window.posted) {

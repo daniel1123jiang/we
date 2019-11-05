@@ -4,8 +4,16 @@ var loader = function () {
         if ($('#loader').length > 0) {
             $('#loader').removeClass('show');
         }
-    }, 1);
+    }, 10);
 };
+
+var showLoader = function () {
+    $('#loader').addClass('show');
+}
+
+var hideLoader = function () {
+    $('#loader').removeClass('show');
+}
 
 // owl carousel
 var majorCarousel = $('.js-carousel-1');
